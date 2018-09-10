@@ -182,7 +182,7 @@ function Get-ContactsFromDirectory
     return $contacts
 }
 
-$token      = "e41266qmwuasa15w9rwe5321ob"
+$token      = ""
 $smartsheet = [Smartsheet.Api.SmartSheetBuilder]::new()
 $builder    = $smartsheet.SetAccessToken($token)
 $client     = $builder.Build()
@@ -232,7 +232,7 @@ foreach ($jobDataCO in $jobDataCOs)
 
             $emailBody = "You have failed to completely fill out all of the required cells in the ANG Job Database and therefore your job number request has been denied at this time.`n`nGoing forward you must fill out ALL of the cells in the light blue section for approval.  All of the cells between the columns marked Job Name and Type of Work are necessary for the job number request paperwork. If it is a charity job then you must also fill out the tan colored charity section towards the end of the sheet.  `n`nPlease return to the database with the link below and fill out the remainder of the required cells.`n`n$dataBaseLink `n`nOnce you have completed filling out the required cells inform wheitmann@allnewglass.com as soon as possible."
 
-            Send-Notification -emailTo $($jobDataCO.Requester) -subject "JOB NUMBER REQUEST DENIED"  -body $emailBody -emailFrom "Alerts@allnewglass.com" -password "Allnew123"
+            Send-Notification -emailTo $($jobDataCO.Requester) -subject "JOB NUMBER REQUEST DENIED"  -body $emailBody -emailFrom "Alerts@allnewglass.com" -password ""
 
             foreach ($contact in $contacts)
             {
@@ -253,7 +253,7 @@ foreach ($jobDataCO in $jobDataCOs)
                     foreach($carrier in $carriers.Values)
                     { 
                         $phoneNumber = $contact.Phone -replace "[^0-9]", ''
-                        Send-Notification -emailTo "$phoneNumber@$carrier" -subject "JOB NUMBER REQUEST DENIED" -body "Job number request incomplete.  Check email for details." -emailFrom "Alerts@allnewglass.com" -password "Allnew123"
+                        Send-Notification -emailTo "$phoneNumber@$carrier" -subject "JOB NUMBER REQUEST DENIED" -body "Job number request incomplete.  Check email for details." -emailFrom "Alerts@allnewglass.com" -password ""
                     }
                 }
             }
